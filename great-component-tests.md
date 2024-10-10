@@ -4,11 +4,12 @@
 
 ## Test template and practices
 
-Here is a golden template of a good test:
+Here is a golden template for a good test, please use this style. Note that the generated tests should follow this structure and practices:
 
 ```typescript
 // Note the test title pattern
 test("When adding a new valid order without delivery address, then ensure it was saved correctly", async () => {
+        // Arrange
         const orderToAdd = buildOrderData({deliveryAddress: undefined}) // Note how the cause is set explicitly and not outside
 
         // Act
