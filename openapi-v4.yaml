@@ -1,27 +1,99 @@
-openapi: 3.0.3
+components:
+  schemas:
+    CreateTicketRequest:
+      additionalProperties: false
+      properties:
+        expiration:
+          description: The expiration date and time of the ticket
+          format: date-time
+          type: string
+        sellerId:
+          description: The ID of the seller
+          type: string
+        ticketTitle:
+          description: The title of the ticket
+          pattern: ^.*:+.*$
+          type: string
+      required:
+      - ticketTitle
+      type: object
+    CreateTicketResponseAccepted:
+      additionalProperties: false
+      properties:
+        barcodeLink:
+          type: string
+        numOfTickets:
+          maximum: 25
+          minimum: 1
+          type: integer
+        status:
+          enum:
+          - accepted
+          type: string
+      required:
+      - status
+      - barcodeLink
+      type: object
+    CreateTicketResponseOther:
+      additionalProperties: false
+      properties:
+        status:
+          enum:
+          - disabledSeller
+          type: string
+      required:
+      - status
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
 info:
-  title: Ticket Management API
   description: API for managing user tickets
+  title: Ticket Management API
   version: 1.0.0
-servers:
-  - url: https://user-service.wiremockapi.cloud
-security:
-  - bearerAuth: []
+openapi: 3.0.3
 paths:
   /users/{userId}/tickets/:
+    delete:
+      description: This endpoint deletes a ticket for the specified user by userId.
+      operationId: deleteUserByUserIdTicket
+      parameters:
+      - description: The ID of the user
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      - description: The ID of the ticket
+        in: path
+        name: ticketId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Ticket deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Ticket not found
+      security:
+      - bearerAuth: []
+      summary: Delete a ticket for a specific user
     post:
-      summary: Create a new ticket
       description: This endpoint creates a new ticket for a specified user.
       operationId: postUserByUserIdTickets
       parameters:
-        - name: userId
-          in: path
-          description: The ID of the user
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
+      - description: The ID of the user
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -29,80 +101,26 @@ paths:
               $ref: '#/components/schemas/CreateTicketRequest'
         required: true
       responses:
-        '401':
-          description: Unauthorized
         '200':
-          description: Create a new ticket - accepted
           content:
             application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/CreateTicketResponseAccepted'
-                  - $ref: '#/components/schemas/CreateTicketResponseOther'
               examples:
                 accepted:
-                  value: |-
-                    {
-                      "status" : "accepted",
-                      "barcodeLink" : "exampleBarcodeLink",
-                      "numOfTickets" : 20
-                    }
+                  value: "{\n  \"status\" : \"accepted\",\n  \"barcodeLink\" : \"\
+                    exampleBarcodeLink\",\n  \"numOfTickets\" : 20\n}"
                 disabledSeller:
-                  value: |-
-                    {
-                      "status" : "disabledSeller"
-                    }
+                  value: "{\n  \"status\" : \"disabledSeller\"\n}"
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/CreateTicketResponseAccepted'
+                - $ref: '#/components/schemas/CreateTicketResponseOther'
+          description: Create a new ticket - accepted
+        '401':
+          description: Unauthorized
       security:
-        - bearerAuth: []
-components:
-  schemas:
-    CreateTicketRequest:
-      required:
-        - ticketTitle
-      type: object
-      properties:
-        ticketTitle:
-          type: string
-          description: The title of the ticket
-          pattern: '^.*:+.*$'
-        expiration:
-          type: string
-          description: The expiration date and time of the ticket
-          format: date-time
-        sellerId:
-          type: string
-          description: The ID of the seller
-
-      additionalProperties: false
-    CreateTicketResponseAccepted:
-      type: object
-      required:
-        - status
-        - barcodeLink
-      properties:
-        status:
-          type: string
-          enum:
-            - accepted
-        barcodeLink:
-          type: string
-        numOfTickets:
-          maximum: 25
-          minimum: 1
-          type: integer
-      additionalProperties: false
-    CreateTicketResponseOther:
-      type: object
-      required:
-        - status
-      properties:
-        status:
-          type: string
-          enum:
-            - disabledSeller
-      additionalProperties: false
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+      - bearerAuth: []
+      summary: Create a new ticket
+security:
+- bearerAuth: []
+servers:
+- url: https://user-service.wiremockapi.cloud
