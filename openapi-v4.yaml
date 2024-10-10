@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: Ticket Management API
+  description: API for managing user tickets
+  version: 1.0.0
+servers:
+  - url: https://user-service.wiremockapi.cloud
+security:
+  - bearerAuth: []
+paths:
+  /users/{userId}/tickets/:
+    post:
+      summary: Create a new ticket
+      description: This endpoint creates a new ticket for a specified user.
+      operationId: postUserByUserIdTickets
+      parameters:
+        - name: userId
+          in: path
+          description: The ID of the user
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTicketRequest'
+        required: true
+      responses:
+        '401':
+          description: Unauthorized
+        '200':
+          description: Create a new ticket - accepted
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/CreateTicketResponseAccepted'
+                  - $ref: '#/components/schemas/CreateTicketResponseOther'
+              examples:
+                accepted:
+                  value: |-
+                    {
+                      "status" : "accepted",
+                      "barcodeLink" : "exampleBarcodeLink",
+                      "numOfTickets" : 20
+                    }
+                disabledSeller:
+                  value: |-
+                    {
+                      "status" : "disabledSeller"
+                    }
+      security:
+        - bearerAuth: []
+components:
+  schemas:
+    CreateTicketRequest:
+      required:
+        - ticketTitle
+      type: object
+      properties:
+        ticketTitle:
+          type: string
+          description: The title of the ticket
+          pattern: '^.*:+.*$'
+        expiration:
+          type: string
+          description: The expiration date and time of the ticket
+          format: date-time
+        sellerId:
+          type: string
+          description: The ID of the seller
+
+      additionalProperties: false
+    CreateTicketResponseAccepted:
+      type: object
+      required:
+        - status
+        - barcodeLink
+      properties:
+        status:
+          type: string
+          enum:
+            - accepted
+        barcodeLink:
+          type: string
+        numOfTickets:
+          maximum: 25
+          minimum: 1
+          type: integer
+      additionalProperties: false
+    CreateTicketResponseOther:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - disabledSeller
+      additionalProperties: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
