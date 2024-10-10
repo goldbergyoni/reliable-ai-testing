@@ -2,7 +2,7 @@
 
 ⏰ WIP, draft, writing now during October
 
-## Test template and practices
+## Best practice test
 
 Here is a golden template for a good test, please use this style. Note that the generated tests should follow this structure and practices:
 
