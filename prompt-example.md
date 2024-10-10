@@ -2,7 +2,7 @@ Hey dear assistant, Based on the attached OpenAPI, please two separate lists: Th
 
 This guide below will tell you which test cases to produce. If you have an idea for other tests cases that are really valuable, specifiy no more then 3 of your own ideas and group them in a dedicated section
 
-Note that the guide in the provided URL contains test template, please follow this test template pattern
+Note that the guide in the provided URL contains test template, please follow it. If you can't find the test template which is called "Best practice test", please stop
 
 Here is the guide:
 https://github.com/goldbergyoni/reliable-ai-testing/blob/main/great-component-tests.md
