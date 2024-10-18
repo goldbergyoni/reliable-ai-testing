@@ -1,0 +1,7 @@
+Here are some software testing best practices and a test to review. Produce a list of test issues according to these practices, including the bullet and number of each practice. You main add your own review tips in a dedicated section
+
+A. 1. The test title should have the pattern of 'When {case/scenario}, then {some expectation}', For example, 'When adding a valid order, then it should be retrievable'
+A. 2. Each data or assumption in the assertion phase, must appear in the arrange phase in the beginning of the test to make the result and cause clear to the reader
+B. 1. Ensure the tests have a line break between the common phases: arrange, act and assert
+C.17 There should be no redundant assertions
+D.11 Details that are not direclty related with understanding the test result, should not be part of the test
