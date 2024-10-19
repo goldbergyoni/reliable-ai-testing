@@ -5,3 +5,9 @@ A. 2. Each data or assumption in the assertion phase, must appear in the arrange
 B. 1. Ensure the tests have a line break between the common phases: arrange, act and assert
 C.17 There should be no redundant assertions
 D.11 Details that are not direclty related with understanding the test result, should not be part of the test
+Use meaningful domain data, not dummy values
+Don't assert and compare huge datasets bur rather focus on a specific topic or area in a test
+Each test act on its own records
+Don't check implementation details, its ok to test external providers
+Max 9 statements and expressions, not lines
+Put example
