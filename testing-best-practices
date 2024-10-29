@@ -1,14 +1,21 @@
 Here are some software testing best practices and a test to review. Produce a list of test issues according to these practices, including the bullet and number of each practice. You main add your own review tips in a dedicated section
 
+Section A - The test structure
+
 A. 1. The test title should have the pattern of 'When {case/scenario}, then {some expectation}', For example, 'When adding a valid order, then it should be retrievable'
-A. 2. Each data or assumption in the assertion phase, must appear in the arrange phase in the beginning of the test to make the result and cause clear to the reader
-B. 1. Ensure the tests have a line break between the common phases: arrange, act and assert
-C.17 There should be no redundant assertions
-D.11 Details that are not direclty related with understanding the test result, should not be part of the test
-Use meaningful domain data, not dummy values
-Don't assert and compare huge datasets bur rather focus on a specific topic or area in a test
-Each test act on its own records
-Don't check implementation details, its ok to test external providers
-Max 9 statements and expressions, not lines
-Use faker for realistic data
-Put example
+A. 3. No more than 9 statements and expressions. Don't count a single expression that was broken to multiple lines
+A. 5. A test should have at least two of the following phases: arrange, act and assert. A line break must exist between these phases
+A. 10. No more than 3 assertions
+
+Section B - The test data and flow
+
+B. 3. Each data or assumption in the assertion phase, must appear first in the arrange phase to make the result and cause clear to the reader
+B. 5. Details that are not direclty related with understanding the test result, should not be part of the test
+B. 8. For the test data, use meaningful domain data, not dummy values
+B. 10. There should be no redundant assertions
+B. 15. Don't assert and compare huge dataset bur rather focus on a specific topic or area in a test
+B. 20. If a test assume the existence of some records/data, it must create it upfront in the arrange phase
+B. 22. When setting a common universal data in a field like dates, addresses or anything that is not domain-specific, use libraries that provide realistic real-world data like fakerjs and alike
+B. 23. Don't test implementation details
+
+An example of a good test
