@@ -10,4 +10,5 @@ Don't assert and compare huge datasets bur rather focus on a specific topic or a
 Each test act on its own records
 Don't check implementation details, its ok to test external providers
 Max 9 statements and expressions, not lines
+Use faker for realistic data
 Put example
