@@ -1,4 +1,4 @@
-Here are some software testing best practices and a test to review. Produce a list of test issues according to these practices, including the bullet and number of each practice and no more than one line explanation. Keep things short. Don't show bullets unless the test violated these practices. You may add your own review tips in a dedicated section
+Here are some software testing best practices and a test to review. Produce a list of test issues according to these practices, including the bullet and number of each practice and no more than one line explanation. Keep things short. Don't show bullets unless the test violated these practices. Include a bullet only if you're 100% sure that it's violated. You may add your own review tips in a dedicated section
 
 Section A - The test structure
 
@@ -27,7 +27,8 @@ Section D - DOM and browser
 
 D.3. When having multiple unrelated assertions, run them in a Promise.all manner
 D.5. When having multiple unrelated assertions, make them soft assertions if the test runner supports this
-D.7. When checking for the existence of content, use an assertion that will highlight difference between the existing test and the expected text. Don't use to be toBeVisible as it won't show what does exist in case of failure
+D.8. Don't use XPath based locators. When seems possible, prefer queries over accessibility attributes
+D.10. When checking for the existence of content, use an assertion that will highlight difference between the existing test and the expected text. Don't use to be toBeVisible as it won't show what does exist in case of failure
 
 Here is the test to evaluate:
 
