@@ -1,10 +1,10 @@
-Here are some software testing best practices and a test to review. Produce a list of test issues according to these practices, including the bullet and number of each practice. You main add your own review tips in a dedicated section
+Here are some software testing best practices and a test to review. Produce a list of test issues according to these practices, including the bullet and number of each practice and no more than one line explanation. Keep things short. Don't show bullets unless the test violated these practices. You may add your own review tips in a dedicated section
 
 Section A - The test structure
 
 A. 1. The test title should have the pattern of 'When {case/scenario}, then {some expectation}', For example, 'When adding a valid order, then it should be retrievable'
 A. 3. No more than 9 statements and expressions. Don't count a single expression that was broken to multiple lines
-A. 5. A test should have at least two of the following phases: arrange, act and assert. A line break must exist between these phases
+A. 5. A test should have at least two phases: Arrange, Act and Assert. Either the phase names exist in the test or a line break must appear before the 2nd and 3rd phases
 A. 10. No more than 3 assertions
 
 Section B - The test data and flow
@@ -13,9 +13,22 @@ B. 3. Each data or assumption in the assertion phase, must appear first in the a
 B. 5. Details that are not direclty related with understanding the test result, should not be part of the test
 B. 8. For the test data, use meaningful domain data, not dummy values
 B. 10. There should be no redundant assertions
-B. 15. Don't assert and compare huge dataset bur rather focus on a specific topic or area in a test
-B. 20. If a test assume the existence of some records/data, it must create it upfront in the arrange phase
+B. 15. Don't assert and compare huge datasets bur rather focus on a specific topic or area in a test
+B. 20. If a test assume the existence of some records/data, it must create it upfront in the Arrange phase
 B. 22. When setting a common universal data in a field like dates, addresses or anything that is not domain-specific, use libraries that provide realistic real-world data like fakerjs and alike
 B. 23. Don't test implementation details
 
-An example of a good test
+Section C - Mocking
+
+D.1. Mock only code that goes outside of our code under test or to simulate an event that is needed for the test scenario
+
+
+Section D - DOM and browser
+
+D.3. When having multiple unrelated assertions, run them in a Promise.all manner
+D.5. When having multiple unrelated assertions, make them soft assertions if the test runner supports this
+D.7. When checking for the existence of content, use an assertion that will highlight difference between the existing test and the expected text. Don't use to be toBeVisible as it won't show what does exist in case of failure
+
+Here is the test to evaluate:
+
+[Test comes here]
